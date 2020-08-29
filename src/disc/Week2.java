@@ -2,17 +2,19 @@ package disc;
 
 public class Week2 {
     public static void main(String[] args) {
-        int out = factorial(4);
-
-        System.out.println(out);
+      aa(4);
     }
 
-    public static int factorial(int n) {            // Method definition
-        if (n == 1) {                               // Check if n is 1
-            return 1;                               //  return 1.
+    public static String[] numbers = {"zero", "one", "two", "three", "four"};
+
+    public static void aa(int n) {
+        if (n >= numbers.length) {
+            System.out.println("Invalid number"); // O(1)
+        } else if (n == 0) {
+            System.out.println("Number is 0!"); // O(1)
         } else {
-            return n * factorial(n-1);          // recursive method that multiplies the return of the factorial by n
+            for (int i = 0; i < n; i++) System.out.println(numbers[n] + ": hello"); // O(n)
+            aa(n-1); // O(n)
         }
     }
-
 }
