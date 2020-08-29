@@ -1,5 +1,7 @@
 package hw;
 
+import java.util.AbstractSet;
+
 public class Homework1 {
 
     // 1.
@@ -40,4 +42,6 @@ public class Homework1 {
 //        System.out.println(xpentagonal(5));
 
     }
+
+//    AbstractSet
 }
