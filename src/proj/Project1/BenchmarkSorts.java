@@ -1,5 +1,7 @@
 package proj.Project1;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -55,6 +57,9 @@ public class BenchmarkSorts {
     }
 
     private void benchmark() {
+        System.out.println("BenchmarkSorts: Warming up JVM");
+        warmup();
+
         System.out.println("BenchmarkSorts: Running Benchmark...");
         int[] temp;
         int[] unsortedData;
@@ -85,9 +90,9 @@ public class BenchmarkSorts {
             System.out.println("BenchmarkSorts: Calculating results...");
             String size = dataSetsSizeLabel;
             double averageCount = (double) bs.getCount() / runs;
-            double coefficientCount = 2.00; // Figure this out
+            double coefficientCount = calcStandardDev(bs.getCount()); // Figure this out
             double averageTime = (double) bs.getTime() / runs;
-            double coefficientTime = 2.00; // Figure this out as well
+            double coefficientTime = calcStandardDev(bs.getTime()); // Figure this out as well
 
             // Saving results
             System.out.println("BenchmarkSorts: Saving results");
@@ -116,12 +121,47 @@ public class BenchmarkSorts {
         }
     }
 
+    private double calcStandardDev(long val) {
+        double[] temp = new double[(int) val];
+        for (int i = 0; i < temp.length; i++) temp[i] = i;
+
+        double sum = 0;
+        double finalSum = 0;
+        double avg = 0;
+
+        for (double t : temp) {
+            sum += t;
+        }
+        avg = sum/val;
+
+        double aa = 0;
+
+        for (double t : temp) {
+            finalSum += Math.sqrt(Math.abs(t - avg));
+        }
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.UP);
+
+        return Double.parseDouble(df.format(Math.sqrt(finalSum/(double) val)));
+    }
+
     private int[] convertIntergerToInt(Integer[] i) {
         int[] out = new int[i.length];
         for (int p = 0; p < i.length; p++) {
             out[p] = Integer.valueOf(i[p]);
         }
         return out;
+    }
+
+    private void warmup() {
+        BubbleSort warmupBS = new BubbleSort();
+
+        int[] warmupData = {1, 2, 3, 4, 5};
+        for (int i = 0; i < 1000; i++) {
+            bs.iterativeSort(warmupData, warmupData.length);
+            bs.recursiveSort(warmupData, warmupData.length);
+        }
     }
 
     public ArrayList<Results> getResults() {
@@ -163,16 +203,4 @@ public class BenchmarkSorts {
             return coefTime;
         }
     }
-
-
-
-
-
-
-
-//    public static void main(String[] args) {
-////        System.out.println(random.nextInt(100));
-//
-//        BenchmarkSorts bms = new BenchmarkSorts();
-//    }
 }

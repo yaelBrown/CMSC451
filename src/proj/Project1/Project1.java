@@ -1,7 +1,5 @@
 package proj.Project1;
 
-import sun.lwawt.macosx.CPrinterDevice;
-
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +7,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Project1 {
+    static {
+        long start = System.nanoTime();
+        long end = System.nanoTime();
+        System.out.println("Warm Up time : " + (end - start));
+    }
+
     public static ArrayList<String> readFile() {
         ArrayList<String> out = new ArrayList<>();
 

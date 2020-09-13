@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GUI {
     public GUI(ArrayList<BenchmarkSorts.Results> bmsR) {
         System.out.println("GUI: Creating GUI");
-        JFrame frame = new JFrame();
+        JFrame frame = new JFrame("Benchmark Report");
         frame.setSize(485, 220);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
